@@ -20,11 +20,9 @@ public class BlasterBolt : MonoBehaviour
 
     }
 
-    public void Init(Vector3 v, float rotZ)
+    public void Init(Vector3 v)
     {
-        if (!rb2d)
-            Debug.Log("No rb2d");
-
+        Debug.Log(v);
         rb2d.velocity = v;
     }
 

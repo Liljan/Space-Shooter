@@ -5,14 +5,15 @@ public class BlasterHandler : MonoBehaviour
 {
 
     public GameObject[] cannons;
+    public Transform target;
+
     private int currentCannon = 0;
     public GameObject BlasterBoltPrefab;
 
     public float coolDownTime, fireRate;
     private float currentCooldownTime = 0;
 
-    public Vector3 blasterVelocity;
-    public float blasterRotation;
+    public float blasterSpeed;
 
     // Use this for initialization
     void Start()
@@ -34,10 +35,12 @@ public class BlasterHandler : MonoBehaviour
     void Fire()
     {
         Vector3 pos = cannons[currentCannon].transform.position;
-        GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
-        BlasterBolt bb = obj.GetComponent<BlasterBolt>();
+        //        Vector3 dir = target.position - pos;
+        //        Vector3 newDir = Vector3.RotateTowards(pos,target.position,-10f*Mathf.Deg2Rad,0F);
 
-        bb.Init(blasterVelocity, blasterRotation * Mathf.Deg2Rad);
+        GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
+        //        obj.GetComponent<BlasterBolt>().Init(newDir);
+        obj.GetComponent<BlasterBolt>().Init(new Vector3(0f, blasterSpeed, 0f));
 
         currentCooldownTime = coolDownTime;
 

@@ -49,10 +49,16 @@ public class EnemyHealthHandler : MonoBehaviour
                 Destroy(this.gameObject, destroyDelay);
             }
         }
+    }
 
-        if (col.CompareTag("Player"))
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.collider.CompareTag("Player"))
         {
-         //   PlayerMovement pl = col.gameObject.GetComponent<Player>();
+            PlayerHealthHandler ph = col.gameObject.GetComponent<PlayerHealthHandler>();
+            ph.TakeDamage(10f);
         }
+
+        Kill();
     }
 }
