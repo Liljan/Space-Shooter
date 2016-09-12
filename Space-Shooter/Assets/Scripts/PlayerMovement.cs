@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movement;
 
     public Boundary boundary;
+    private bool isPaused = Globals.Instance.IsPaused();
 
     // Use this for initialization
     void Start()
@@ -31,6 +32,18 @@ public class PlayerMovement : MonoBehaviour
             Mathf.Clamp(rb2d.position.x, boundary.xMin, boundary.xMax),
             Mathf.Clamp(rb2d.position.y, boundary.yMin, boundary.yMax));
 
-       //transform.rotation = Quaternion.Euler(0f, rb2d.velocity.normalized.x * -tilt, 0f);
+        //transform.rotation = Quaternion.Euler(0f, rb2d.velocity.normalized.x * -tilt, 0f);
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            if (!Globals.Instance.IsPaused())
+            {
+                Globals.Instance.SetPaused(true);
+            }
+            else
+            {
+                Globals.Instance.SetPaused(false);
+            }
+        }
     }
 }
