@@ -39,6 +39,7 @@ public class BlasterHandler : MonoBehaviour
         //        Vector3 newDir = Vector3.RotateTowards(pos,target.position,-10f*Mathf.Deg2Rad,0F);
 
         GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
+        Globals.Instance.AddFiredShot();
         //        obj.GetComponent<BlasterBolt>().Init(newDir);
         obj.GetComponent<BlasterBolt>().Init(new Vector3(0f, blasterSpeed, 0f));
 

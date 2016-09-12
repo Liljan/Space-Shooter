@@ -22,7 +22,6 @@ public class BlasterBolt : MonoBehaviour
 
     public void Init(Vector3 v)
     {
-        Debug.Log(v);
         rb2d.velocity = v;
     }
 

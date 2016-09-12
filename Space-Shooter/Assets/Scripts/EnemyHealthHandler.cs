@@ -8,7 +8,10 @@ public class EnemyHealthHandler : MonoBehaviour
 
     public float destroyDelay = 0f;
 
+    public int score = 10;
+
     public GameObject explosionPrefab;
+    public GameObject displayTextPrefab;
 
     // Use this for initialization
     void Start()
@@ -34,6 +37,12 @@ public class EnemyHealthHandler : MonoBehaviour
     public void Kill()
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
+
+        GameObject txtObj = Instantiate(displayTextPrefab, transform.position + 2f * Vector3.right, transform.rotation) as GameObject;
+
+        txtObj.GetComponent<TextMesh>().text = score.ToString();
+        Globals.Instance.AddScore(score);
+
         Destroy(this.gameObject, destroyDelay);
     }
 
