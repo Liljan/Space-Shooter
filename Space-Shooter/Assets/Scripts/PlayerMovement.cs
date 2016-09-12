@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rb2d = GameObject.FindObjectOfType<Rigidbody2D>();
+        rb2d = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -31,6 +31,6 @@ public class PlayerMovement : MonoBehaviour
             Mathf.Clamp(rb2d.position.x, boundary.xMin, boundary.xMax),
             Mathf.Clamp(rb2d.position.y, boundary.yMin, boundary.yMax));
 
-        transform.rotation = Quaternion.Euler(0f, rb2d.velocity.normalized.x * -tilt, 0f);
+       //transform.rotation = Quaternion.Euler(0f, rb2d.velocity.normalized.x * -tilt, 0f);
     }
 }
