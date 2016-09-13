@@ -13,7 +13,7 @@ public class Globals : Singleton<Globals>
 
     private float playerHealth;
 
-    private Text scoreText;
+    private Text scoreText, healthText;
 
     // shots
     private int shotsFired = 0;
@@ -22,6 +22,7 @@ public class Globals : Singleton<Globals>
     {
         Debug.Log("Awoke Singleton Instance: " + gameObject.GetInstanceID());
         scoreText = GameObject.FindGameObjectWithTag("DebugStatistics").GetComponent<Text>();
+        healthText = GameObject.FindGameObjectWithTag("HealthText").GetComponent<Text>();
         DisplayScoreText();
     }
 
@@ -41,7 +42,11 @@ public class Globals : Singleton<Globals>
     }
 
     public float GetPlayerHealth() { return playerHealth; }
-    public void SetPlayerHealth(float f) { playerHealth = f; }
+    public void SetPlayerHealth(float f)
+    {
+        playerHealth = f;
+        DisplayHealthText();
+    }
 
     public int GetShotsFired() { return shotsFired; }
     public void AddFiredShot() { ++shotsFired; }
@@ -54,4 +59,5 @@ public class Globals : Singleton<Globals>
     }
 
     public void DisplayScoreText() { scoreText.text = "Score: " + score; }
+    public void DisplayHealthText() { healthText.text = "Health: " + playerHealth; }
 }

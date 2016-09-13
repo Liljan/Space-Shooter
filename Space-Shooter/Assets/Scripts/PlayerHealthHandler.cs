@@ -14,6 +14,7 @@ public class PlayerHealthHandler : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        Globals.Instance.SetPlayerHealth(currentHealth);
     }
 
     // Update is called once per frame
@@ -25,7 +26,10 @@ public class PlayerHealthHandler : MonoBehaviour
     public void TakeDamage(float d)
     {
         currentHealth -= d;
-        if (currentHealth <= 0f)
+
+        currentHealth = Mathf.Max(currentHealth, 0f);
+        Globals.Instance.SetPlayerHealth(currentHealth);
+        if (currentHealth == 0f)
         {
             Kill();
         }
