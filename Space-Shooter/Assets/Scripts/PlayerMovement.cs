@@ -13,14 +13,14 @@ public class PlayerMovement : MonoBehaviour
     public Boundary boundary;
     private bool isPaused;
 
-    private LevelHandler lh;
+    //private LevelHandler lh;
 
     // Use this for initialization
     void Start()
     {
         rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         // the very very bad structure....
-        lh = GameObject.FindObjectOfType<LevelHandler>();
+      //  lh = GameObject.FindObjectOfType<LevelHandler>();
     }
 
     // Update is called once per frame

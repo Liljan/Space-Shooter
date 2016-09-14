@@ -11,7 +11,8 @@ public class BlasterHandler : MonoBehaviour
     private int currentCannon = 0;
     public GameObject BlasterBoltPrefab;
 
-    public float coolDownTime, fireRate;
+    public float fireRate = 1;
+    private float coolDownTime;
     private float currentCooldownTime = 0;
 
     public float blasterSpeed;
@@ -19,6 +20,7 @@ public class BlasterHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        coolDownTime = 1 / fireRate;
         lh = GameObject.FindObjectOfType<LevelHandler>();
     }
 
