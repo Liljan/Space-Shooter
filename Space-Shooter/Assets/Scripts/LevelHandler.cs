@@ -6,17 +6,24 @@ public class LevelHandler : MonoBehaviour
 {
     private int score = 0;
     private int scoreMult = 1;
-    private float playerHealth;
+    private float playerHealth, playerMaxHealth;
 
     private bool paused = false;
     private int shotsFired = 0;
 
-    public Text scoreText, healthText;
+    public Text scoreText;
+    public BarScript healthBar;
 
     // Use this for initialization
     void Start()
     {
         DisplayScoreText();
+    }
+
+    public void InitHealth(float maxHealth)
+    {
+        playerMaxHealth = maxHealth;
+        playerHealth = playerMaxHealth;
     }
 
     // Update is called once per frame
@@ -56,8 +63,10 @@ public class LevelHandler : MonoBehaviour
     public void SetPlayerHealth(float f)
     {
         playerHealth = f;
-        DisplayHealthText();
+        Debug.Log(playerHealth.ToString());
+        healthBar.UpdateBar(playerHealth, playerMaxHealth);
     }
+
 
     public int GetShotsFired() { return shotsFired; }
     public void AddFiredShot() { ++shotsFired; }
@@ -70,5 +79,4 @@ public class LevelHandler : MonoBehaviour
     }
 
     public void DisplayScoreText() { scoreText.text = "Score: " + score; }
-    public void DisplayHealthText() { healthText.text = "Health: " + playerHealth; }
 }

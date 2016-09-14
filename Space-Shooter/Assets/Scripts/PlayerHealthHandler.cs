@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerHealthHandler : MonoBehaviour
 {
-    public float maxHealth = 1;
+    public float maxHealth = 100;
     private float currentHealth;
 
     public float destroyDelay = 0f;
@@ -17,7 +17,7 @@ public class PlayerHealthHandler : MonoBehaviour
     {
         currentHealth = maxHealth;
         lh = GameObject.FindObjectOfType<LevelHandler>();
-        lh.SetPlayerHealth(currentHealth);
+        lh.InitHealth(maxHealth);
     }
 
     // Update is called once per frame
