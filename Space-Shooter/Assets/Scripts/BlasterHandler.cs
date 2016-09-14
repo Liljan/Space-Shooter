@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BlasterHandler : MonoBehaviour
 {
+    private LevelHandler lh;
 
     public GameObject[] cannons;
     public Transform target;
@@ -18,7 +19,7 @@ public class BlasterHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        lh = GameObject.FindObjectOfType<LevelHandler>();
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class BlasterHandler : MonoBehaviour
         //        Vector3 newDir = Vector3.RotateTowards(pos,target.position,-10f*Mathf.Deg2Rad,0F);
 
         GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
-        Globals.Instance.AddFiredShot();
+        lh.AddFiredShot();
         //        obj.GetComponent<BlasterBolt>().Init(newDir);
         obj.GetComponent<BlasterBolt>().Init(new Vector3(0f, blasterSpeed, 0f));
 

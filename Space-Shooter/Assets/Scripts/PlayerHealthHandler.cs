@@ -10,11 +10,14 @@ public class PlayerHealthHandler : MonoBehaviour
 
     public GameObject explosionPrefab;
 
+    private LevelHandler lh;
+
     // Use this for initialization
     void Start()
     {
         currentHealth = maxHealth;
-        Globals.Instance.SetPlayerHealth(currentHealth);
+        lh = GameObject.FindObjectOfType<LevelHandler>();
+        lh.SetPlayerHealth(currentHealth);
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class PlayerHealthHandler : MonoBehaviour
         currentHealth -= d;
 
         currentHealth = Mathf.Max(currentHealth, 0f);
-        Globals.Instance.SetPlayerHealth(currentHealth);
+        lh.SetPlayerHealth(currentHealth);
         if (currentHealth == 0f)
         {
             Kill();

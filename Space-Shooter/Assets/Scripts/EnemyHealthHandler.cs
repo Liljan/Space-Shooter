@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyHealthHandler : MonoBehaviour
 {
+    private LevelHandler lh;
     public float maxHealth = 1;
     private float currentHealth;
 
@@ -16,6 +17,7 @@ public class EnemyHealthHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        lh = GameObject.FindObjectOfType<LevelHandler>();
         currentHealth = maxHealth;
     }
 
@@ -39,10 +41,9 @@ public class EnemyHealthHandler : MonoBehaviour
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 
         GameObject txtObj = Instantiate(displayTextPrefab, transform.position + 2f * Vector3.right, transform.rotation) as GameObject;
-
         txtObj.GetComponent<TextMesh>().text = score.ToString();
-        Globals.Instance.AddScore(score);
 
+        lh.AddScore(score);
         Destroy(this.gameObject, destroyDelay);
     }
 
@@ -55,7 +56,6 @@ public class EnemyHealthHandler : MonoBehaviour
             {
                 TakeDamage(bb.GetDamage());
                 bb.Kill();
-                Destroy(this.gameObject, destroyDelay);
             }
         }
     }
