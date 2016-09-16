@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TieFighter : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
-
     public Transform spawnPoint, stopPoint;
     public Vector2 vel;
 
