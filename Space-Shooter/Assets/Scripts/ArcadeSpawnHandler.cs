@@ -35,7 +35,7 @@ public class ArcadeSpawnHandler : MonoBehaviour
 
     Vector3 GetRandomPos()
     {
-        x = Mathf.Round(Random.Range(0f, width));
+        x = Mathf.Round(Random.Range(-width/2, width/2));
         return new Vector3(x, y, z);
     }
 
