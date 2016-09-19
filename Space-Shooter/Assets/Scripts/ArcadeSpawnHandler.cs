@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ArcadeSpawnHandler : MonoBehaviour
 {
+    private Dictionary<string, GameObject> enemyDictionary;
+
+    // references to other memebers
+    private LevelHandler levelHandler;
+
     private float width;
     private float x, y, z;
 
@@ -16,8 +22,14 @@ public class ArcadeSpawnHandler : MonoBehaviour
     public float timeToSpawn;
 
     // spawn
-    public GameObject TieFighter;
+    private int wave;
 
+    public GameObject TieFighter;
+    public GameObject TieBomber;
+    public GameObject TieInterceptor;
+
+    private int nEnemies = 10;
+    private int nEnemiesToSpawn;
     private int nFighters = 100;
     private int nBombers = 0;
     private int nInterceptors = 0;
@@ -31,11 +43,13 @@ public class ArcadeSpawnHandler : MonoBehaviour
         stepSize = width / cols;
 
         timeToSpawn = Random.Range(0f, maxSpawnTime);
+        wave = 1;
+        nEnemiesToSpawn = nEnemies;
     }
 
     Vector3 GetRandomPos()
     {
-        x = Mathf.Round(Random.Range(-width/2, width/2));
+        x = Mathf.Round(Random.Range(-width / 2, width / 2));
         return new Vector3(x, y, z);
     }
 
@@ -63,5 +77,11 @@ public class ArcadeSpawnHandler : MonoBehaviour
     public void SpawnGameObject(GameObject g)
     {
         Instantiate(g, GetRandomPos(), Quaternion.identity);
+    }
+
+    public void NewWave()
+    {
+        //nEnemiesToSpawn += 10;
+
     }
 }

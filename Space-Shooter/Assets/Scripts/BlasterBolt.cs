@@ -17,7 +17,6 @@ public class BlasterBolt : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     public void Init(Vector3 v)
