@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class SpawnHandler : MonoBehaviour
 {
-
     // bitmap that stores
     public Texture2D levelData;
     private int width, height;

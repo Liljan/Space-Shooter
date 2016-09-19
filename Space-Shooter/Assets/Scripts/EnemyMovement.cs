@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform spawnPoint, stopPoint;
     public Vector2 vel;
 
     private Rigidbody2D rb2d;
@@ -18,9 +17,6 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y < stopPoint.position.y)
-        {
-            Destroy(this.gameObject);
-        }
+
     }
 }

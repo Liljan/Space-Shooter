@@ -38,6 +38,7 @@ public class BlasterHandler : MonoBehaviour
     void Fire()
     {
         Vector3 pos = cannons[currentCannon].transform.position;
+        pos.z = 0f;
         //        Vector3 dir = target.position - pos;
         //        Vector3 newDir = Vector3.RotateTowards(pos,target.position,-10f*Mathf.Deg2Rad,0F);
 
