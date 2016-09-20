@@ -67,7 +67,6 @@ public class LevelHandler : MonoBehaviour
         healthBar.UpdateBar(playerHealth, playerMaxHealth);
     }
 
-
     public int GetShotsFired() { return shotsFired; }
     public void AddFiredShot() { ++shotsFired; }
 

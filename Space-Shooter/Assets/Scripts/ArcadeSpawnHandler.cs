@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class ArcadeSpawnHandler : MonoBehaviour
 {
-    private Dictionary<string, GameObject> enemyDictionary;
-
     // references to other memebers
     private LevelHandler levelHandler;
 
@@ -22,15 +20,16 @@ public class ArcadeSpawnHandler : MonoBehaviour
     public float timeToSpawn;
 
     // spawn
-    private int wave;
+    private int wave = 0;
 
     public GameObject TieFighter;
     public GameObject TieBomber;
     public GameObject TieInterceptor;
 
-    private int nEnemies = 10;
-    private int nEnemiesToSpawn;
-    private int nFighters = 100;
+    private int nEnemiesLeft;
+    private int nMaxFighters = 0;
+    private int nFighters;
+
     private int nBombers = 0;
     private int nInterceptors = 0;
 
@@ -43,8 +42,7 @@ public class ArcadeSpawnHandler : MonoBehaviour
         stepSize = width / cols;
 
         timeToSpawn = Random.Range(0f, maxSpawnTime);
-        wave = 1;
-        nEnemiesToSpawn = nEnemies;
+        NextWave();
     }
 
     Vector3 GetRandomPos()
@@ -79,9 +77,10 @@ public class ArcadeSpawnHandler : MonoBehaviour
         Instantiate(g, GetRandomPos(), Quaternion.identity);
     }
 
-    public void NewWave()
+    public void NextWave()
     {
         //nEnemiesToSpawn += 10;
-
+        nMaxFighters += 10;
+        nFighters = nMaxFighters;
     }
 }
