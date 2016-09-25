@@ -33,6 +33,7 @@ public class BlasterHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetButton("Fire1") && currentCooldownTime <= 0f)
         {
             Fire();
@@ -52,9 +53,12 @@ public class BlasterHandler : MonoBehaviour
         lh.AddFiredShot();
         //        obj.GetComponent<BlasterBolt>().Init(newDir);
         obj.GetComponent<BlasterBolt>().Init(new Vector3(0f, blasterSpeed, 0f));
+
         am.PlaySFX(SFX_blast);
 
         currentCooldownTime = coolDownTime;
+
+
 
         ++currentCannon;
         if (currentCannon > cannons.Length - 1)

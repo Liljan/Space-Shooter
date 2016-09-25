@@ -25,6 +25,13 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(ac,AUDIO_SETTINGS.MASTER_VOLUME*AUDIO_SETTINGS.SFX_VOLUME);
     }
 
+    public void PlaySFXRandomPitch(AudioClip ac)
+    {
+        audioSource.pitch = Random.Range(0.5f, 2.1f);
+        audioSource.PlayOneShot(ac, AUDIO_SETTINGS.MASTER_VOLUME * AUDIO_SETTINGS.SFX_VOLUME);
+        //audioSource.pitch = 1f;
+    }
+
     public void LoopMusic(AudioClip ms)
     {
         // TODO
