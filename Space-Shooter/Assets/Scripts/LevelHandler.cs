@@ -55,6 +55,11 @@ public class LevelHandler : MonoBehaviour
             }
         }
 
+        if (Input.GetButtonDown("Restart"))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
     }
 
     public bool IsPaused() { return paused; }

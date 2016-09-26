@@ -43,4 +43,19 @@ public class PlayerHealthHandler : MonoBehaviour
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(this.gameObject, destroyDelay);
     }
+
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("EnemyBlaster"))
+        {
+            BlasterBolt bb = col.gameObject.GetComponent<BlasterBolt>();
+            if (bb)
+            {
+                TakeDamage(bb.GetDamage());
+                bb.Kill();
+            }
+        }
+    }
+
 }

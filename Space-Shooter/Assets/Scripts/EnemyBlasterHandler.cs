@@ -21,7 +21,7 @@ public class EnemyBlasterHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        timeToFire = Random.Range(5f, 10f);
+        timeToFire = 0.5f;
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class EnemyBlasterHandler : MonoBehaviour
             Fire();
             Fire();
 
-            timeToFire = Random.Range(5f, 10f);
+            timeToFire = Random.Range(1f, 2f);
         }
 
         timeToFire -= Time.deltaTime;
