@@ -17,7 +17,7 @@ public class ArcadeSpawnHandler : MonoBehaviour
 
     // timers
     public float maxSpawnTime = 3f;
-    public float timeToSpawn;
+    private float timeToSpawn;
 
     // spawn
     private int wave = 0;
@@ -33,6 +33,14 @@ public class ArcadeSpawnHandler : MonoBehaviour
     private int nBombers = 0;
     private int nInterceptors = 0;
 
+
+    // levels stats
+
+    void Awake()
+    {
+        levelHandler = GameObject.FindObjectOfType<LevelHandler>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -41,7 +49,7 @@ public class ArcadeSpawnHandler : MonoBehaviour
         z = spawnPointLeft.position.z;
         stepSize = width / cols;
 
-        timeToSpawn = Random.Range(0f, maxSpawnTime);
+        timeToSpawn = 5.0f;
         NextWave();
     }
 
@@ -66,9 +74,10 @@ public class ArcadeSpawnHandler : MonoBehaviour
 
     public void SpawnRandom()
     {
-        if (nFighters >= 0)
+        if (nFighters > 0)
         {
             SpawnGameObject(TieFighter);
+            --nFighters;
         }
     }
 
@@ -82,5 +91,11 @@ public class ArcadeSpawnHandler : MonoBehaviour
         //nEnemiesToSpawn += 10;
         nMaxFighters += 10;
         nFighters = nMaxFighters;
+        ++wave;
+
+        levelHandler.SetRemainingEnemies(nMaxFighters);
+        levelHandler.DisplayWaveText(wave);
+
+        timeToSpawn = 5.0f;
     }
 }

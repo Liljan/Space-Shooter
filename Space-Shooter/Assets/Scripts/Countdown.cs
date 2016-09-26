@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Countdown : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ShowMessages();
+       // ShowMessages();
     }
 
     // Update is called once per frame
@@ -22,12 +23,13 @@ public class Countdown : MonoBehaviour
 
     }
 
-    public void ShowMessages()
+    public void ShowWaveNumber(int nWaves)
     {
-        StartCoroutine(FinalCountdown(timer));
+       // waveNumberText.text = "Wave " + nWaves;
+        StartCoroutine(FinalCountdown(timer,nWaves));
     }
 
-    IEnumerator FinalCountdown(float t)
+    IEnumerator FinalCountdown(float t, int nWaves)
     {
         yield return new WaitForSeconds(t);
         GameObject g1 = Instantiate(waveMessage, transform.position, Quaternion.identity) as GameObject;
@@ -37,6 +39,7 @@ public class Countdown : MonoBehaviour
 
         GameObject g2 = Instantiate(waveNumberText, transform.position, Quaternion.identity) as GameObject;
         g2.transform.SetParent(this.transform);
+        g2.GetComponent<Text>().text = "Wave " + nWaves;
         yield return new WaitForSeconds(t);
         Destroy(g2);
 

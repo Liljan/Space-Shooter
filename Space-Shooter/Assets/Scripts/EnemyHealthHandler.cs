@@ -62,6 +62,7 @@ public class EnemyHealthHandler : MonoBehaviour
         txtObj.GetComponent<TextMesh>().text = score.ToString();
 
         lh.AddScore(score);
+        lh.AddDestroyedEnemy();
         Destroy(this.gameObject, destroyDelay);
     }
 
@@ -78,6 +79,7 @@ public class EnemyHealthHandler : MonoBehaviour
         }
         if (col.CompareTag("StopPoint"))
         {
+            lh.AddDestroyedEnemy();
             Destroy(this.gameObject, destroyDelay);
         }
     }

@@ -11,8 +11,21 @@ public class LevelHandler : MonoBehaviour
     private bool paused = false;
     private int shotsFired = 0;
 
+    // enemies
+    private int remainingEnemies;
+
     public Text scoreText;
     public BarScript healthBar;
+
+    private ArcadeSpawnHandler spawnHandler;
+    private Countdown waveGUIHandler;
+
+
+    void Awake()
+    {
+        spawnHandler = GetComponent<ArcadeSpawnHandler>();
+        waveGUIHandler = GameObject.FindObjectOfType<Countdown>();
+    }
 
     // Use this for initialization
     void Start()
@@ -77,5 +90,20 @@ public class LevelHandler : MonoBehaviour
         DisplayScoreText();
     }
 
+    public void AddDestroyedEnemy()
+    {
+        --remainingEnemies;
+
+        Debug.Log(remainingEnemies);
+
+        if (remainingEnemies <= 0)
+        {
+            spawnHandler.NextWave();
+        }
+    }
+
+    public void SetRemainingEnemies(int n) { remainingEnemies = n; }
+
     public void DisplayScoreText() { scoreText.text = "Score: " + score; }
+    public void DisplayWaveText(int nWaves) { waveGUIHandler.ShowWaveNumber(nWaves); }
 }
