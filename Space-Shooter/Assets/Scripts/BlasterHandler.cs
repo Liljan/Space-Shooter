@@ -46,19 +46,17 @@ public class BlasterHandler : MonoBehaviour
     {
         Vector3 pos = cannons[currentCannon].transform.position;
         pos.z = 0f;
-        //        Vector3 dir = target.position - pos;
-        //        Vector3 newDir = Vector3.RotateTowards(pos,target.position,-10f*Mathf.Deg2Rad,0F);
+        Vector3 dir = target.position - pos;
+        dir.Normalize();
+        dir *= blasterSpeed;
 
         GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
         lh.AddFiredShot();
-        //        obj.GetComponent<BlasterBolt>().Init(newDir);
-        obj.GetComponent<BlasterBolt>().Init(new Vector3(0f, blasterSpeed, 0f));
+        obj.GetComponent<BlasterBolt>().Init(dir);
 
         am.PlaySFX(SFX_blast);
 
         currentCooldownTime = coolDownTime;
-
-
 
         ++currentCannon;
         if (currentCannon > cannons.Length - 1)
