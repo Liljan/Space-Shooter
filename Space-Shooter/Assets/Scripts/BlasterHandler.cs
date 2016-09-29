@@ -18,7 +18,8 @@ public class BlasterHandler : MonoBehaviour
     public float blasterSpeed;
 
     // audio
-    private AudioManager am;
+    //private AudioManager am;
+    public AudioSource audioSource;
     public AudioClip SFX_blast;
 
     // Use this for initialization
@@ -26,8 +27,7 @@ public class BlasterHandler : MonoBehaviour
     {
         coolDownTime = 1 / fireRate;
         lh = GameObject.FindObjectOfType<LevelHandler>();
-        // am = GameObject.FindObjectOfType<AudioManager>();
-        am = this.gameObject.GetComponent<AudioManager>();
+        audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -54,7 +54,8 @@ public class BlasterHandler : MonoBehaviour
         lh.AddFiredShot();
         obj.GetComponent<BlasterBolt>().Init(dir);
 
-        am.PlaySFX(SFX_blast);
+        // am.PlaySFX(SFX_blast);
+        audioSource.PlayOneShot(SFX_blast);
 
         currentCooldownTime = coolDownTime;
 

@@ -8,20 +8,21 @@ public class EnemyBlasterHandler : MonoBehaviour
     private int currentCannon = 0;
     public GameObject BlasterBoltPrefab;
 
-    public float fireRate = 1;
+    public float maxTimeToFire;
     private float timeToFire;
 
     public float blasterSpeed;
 
     // audio
-    private AudioManager am;
+    private AudioSource audioSource;
     public AudioClip SFX_blast;
-
 
     // Use this for initialization
     void Start()
     {
-        timeToFire = 0.5f;
+        // audioSource = this.gameObject.GetComponent<AudioSource>();
+        audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
+        timeToFire = Random.Range(1f, maxTimeToFire);
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class EnemyBlasterHandler : MonoBehaviour
             Fire();
             Fire();
 
-            timeToFire = Random.Range(1f, 2f);
+            timeToFire = Random.Range(1f, maxTimeToFire);
         }
 
         timeToFire -= Time.deltaTime;
@@ -45,6 +46,8 @@ public class EnemyBlasterHandler : MonoBehaviour
 
         GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
         obj.GetComponent<BlasterBolt>().Init(new Vector3(0.0f, -blasterSpeed, 0.0f));
+
+        audioSource.PlayOneShot(SFX_blast);
 
         ++currentCannon;
         if (currentCannon > cannons.Length - 1)
