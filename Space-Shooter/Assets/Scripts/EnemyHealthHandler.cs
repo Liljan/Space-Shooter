@@ -77,7 +77,7 @@ public class EnemyHealthHandler : MonoBehaviour
                 bb.Kill();
             }
         }
-        if (col.CompareTag("StopPoint"))
+        else if (col.CompareTag("StopPoint"))
         {
             lh.AddDestroyedEnemy();
             Destroy(this.gameObject, destroyDelay);
