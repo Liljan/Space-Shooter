@@ -7,6 +7,7 @@ public class LevelHandler : MonoBehaviour
     private int score = 0;
     private int scoreMult = 1;
     private float playerHealth, playerMaxHealth;
+    private float playerSheild, playerMaxSheild;
 
     private bool paused = false;
     private int shotsFired = 0;
@@ -16,6 +17,7 @@ public class LevelHandler : MonoBehaviour
 
     public Text scoreText;
     public BarScript healthBar;
+    public BarScript sheildBar;
 
     private ArcadeSpawnHandler spawnHandler;
     private Countdown waveGUIHandler;
@@ -39,6 +41,12 @@ public class LevelHandler : MonoBehaviour
         playerHealth = playerMaxHealth;
     }
 
+    public void InitSheild(float maxSheild)
+    {
+        playerMaxSheild = maxSheild;
+        playerSheild = playerMaxSheild;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -59,6 +67,8 @@ public class LevelHandler : MonoBehaviour
         {
             Application.LoadLevel(Application.loadedLevel);
         }
+
+
 
     }
 
@@ -83,6 +93,12 @@ public class LevelHandler : MonoBehaviour
         playerHealth = f;
         //Debug.Log(playerHealth.ToString());
         healthBar.UpdateBar(playerHealth, playerMaxHealth);
+    }
+
+    public void SetPlayerSheild(float f)
+    {
+        playerSheild = f;
+        sheildBar.UpdateBar(playerSheild, playerMaxSheild);
     }
 
     public int GetShotsFired() { return shotsFired; }

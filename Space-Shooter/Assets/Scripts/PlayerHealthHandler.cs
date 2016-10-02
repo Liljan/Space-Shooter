@@ -6,6 +6,10 @@ public class PlayerHealthHandler : MonoBehaviour
     public float maxHealth = 100;
     private float currentHealth;
 
+    public float maxSheild = 20;
+    private float currentSheild;
+    public float sheildRefreshRate = 0.5f;
+
     public float destroyDelay = 0f;
 
     public GameObject explosionPrefab;
@@ -16,19 +20,40 @@ public class PlayerHealthHandler : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        currentSheild = maxSheild;
         lh = GameObject.FindObjectOfType<LevelHandler>();
         lh.InitHealth(maxHealth);
+        lh.InitSheild(maxSheild);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        if (currentSheild < maxSheild)
+        {
+            currentSheild += sheildRefreshRate*Time.deltaTime;
+            currentSheild = Mathf.Min(currentSheild, maxSheild);
+            lh.SetPlayerSheild(currentSheild);
+
+        }
     }
 
     public void TakeDamage(float d)
     {
-        currentHealth -= d;
+        float newSheild = currentSheild - d;
+        float healthToRemove = 0.0f;
+
+        if(newSheild < 0.0f)
+        {
+            healthToRemove = Mathf.Abs(newSheild);
+            newSheild = 0.0f;
+        }
+
+        currentSheild = newSheild;
+        lh.SetPlayerSheild(currentSheild);
+
+        currentHealth -= healthToRemove;
 
         currentHealth = Mathf.Max(currentHealth, 0f);
         lh.SetPlayerHealth(currentHealth);
