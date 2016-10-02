@@ -81,7 +81,7 @@ public class LevelHandler : MonoBehaviour
     public void SetPlayerHealth(float f)
     {
         playerHealth = f;
-        Debug.Log(playerHealth.ToString());
+        //Debug.Log(playerHealth.ToString());
         healthBar.UpdateBar(playerHealth, playerMaxHealth);
     }
 

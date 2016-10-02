@@ -43,7 +43,6 @@ public class Missile : MonoBehaviour
         }
 
         CheckBoundaries();
-
     }
 
     private void CheckBoundaries()

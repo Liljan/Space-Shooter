@@ -38,6 +38,13 @@ public class PlayerHealthHandler : MonoBehaviour
         }
     }
 
+    public void AddHealth(float d)
+    {
+        currentHealth += d;
+        currentHealth = Mathf.Max(currentHealth, maxHealth);
+        lh.SetPlayerHealth(currentHealth);
+    }
+
     public void Kill()
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
