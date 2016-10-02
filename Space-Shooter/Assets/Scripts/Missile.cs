@@ -6,9 +6,12 @@ public class Missile : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private Transform target;
+    private Vector3 targetPos;
 
     public float speed;
+    public GameObject explosionPrefab;
 
+    public Boundary borders;
 
     public void Awake()
     {
@@ -19,7 +22,8 @@ public class Missile : MonoBehaviour
     void Start()
     {
         target = FindTarget();
-       // rb2d.velocity = transform.up * speed;
+        targetPos = Vector3.up * 9000.0f;
+        // rb2d.velocity = transform.up * speed;
     }
 
     // Update is called once per frame
@@ -33,7 +37,20 @@ public class Missile : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * speed);
         }
+        else
+        {
+            transform.position += transform.up * Time.deltaTime * speed;
+        }
 
+        CheckBoundaries();
+
+    }
+
+    private void CheckBoundaries()
+    {
+        Vector2 pos = transform.position;
+        if (pos.x < borders.xMin || pos.x > borders.xMax || pos.y < borders.yMin || pos.y > borders.yMax)
+            Destroy(gameObject);
     }
 
     private Transform FindTarget()
@@ -60,7 +77,17 @@ public class Missile : MonoBehaviour
             }
         }
 
-        Debug.Log(enemies[idxClosest]);
+        // Debug.Log(enemies[idxClosest]);
         return enemies[idxClosest].transform;
+    }
+
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }

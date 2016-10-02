@@ -10,6 +10,7 @@ public class BlasterHandler : MonoBehaviour
 
     private int currentCannon = 0;
     public GameObject BlasterBoltPrefab;
+    public GameObject MisslePrefab;
 
     public float fireRate = 1;
     private float coolDownTime;
@@ -27,16 +28,20 @@ public class BlasterHandler : MonoBehaviour
     {
         coolDownTime = 1 / fireRate;
         lh = GameObject.FindObjectOfType<LevelHandler>();
-audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
+        audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetButton("Fire1") && currentCooldownTime <= 0f)
+        if (Input.GetButton("Fire") && currentCooldownTime <= 0f)
         {
             Fire();
+        }
+        else if (Input.GetButtonDown("Missiles"))
+        {
+            Instantiate(MisslePrefab, transform.position, transform.rotation);
         }
 
         currentCooldownTime -= Time.deltaTime;
