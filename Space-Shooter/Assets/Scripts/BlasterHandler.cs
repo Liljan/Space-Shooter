@@ -27,7 +27,7 @@ public class BlasterHandler : MonoBehaviour
     {
         coolDownTime = 1 / fireRate;
         lh = GameObject.FindObjectOfType<LevelHandler>();
-        audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
+audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
