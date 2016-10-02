@@ -12,7 +12,7 @@ public class BlasterHandler : MonoBehaviour
     public GameObject BlasterBoltPrefab;
     public GameObject MisslePrefab;
 
-    public float fireRate = 1;
+    public float fireRate = 1.0f;
     private float coolDownTime;
     private float currentCooldownTime = 0;
 
@@ -67,5 +67,11 @@ public class BlasterHandler : MonoBehaviour
         ++currentCannon;
         if (currentCannon > cannons.Length - 1)
             currentCannon = 0;
+    }
+
+    public void AddFireRate(float f)
+    {
+        fireRate += f;
+        coolDownTime = 1 / fireRate;
     }
 }
