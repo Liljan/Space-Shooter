@@ -15,13 +15,16 @@ public class PlayerHealthHandler : MonoBehaviour
     public GameObject explosionPrefab;
 
     private LevelHandler lh;
+    private SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start()
     {
+        lh = GameObject.FindObjectOfType<LevelHandler>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         currentHealth = maxHealth;
         currentSheild = maxSheild;
-        lh = GameObject.FindObjectOfType<LevelHandler>();
         lh.InitHealth(maxHealth);
         lh.InitSheild(maxSheild);
     }
@@ -32,10 +35,9 @@ public class PlayerHealthHandler : MonoBehaviour
 
         if (currentSheild < maxSheild)
         {
-            currentSheild += sheildRefreshRate*Time.deltaTime;
+            currentSheild += sheildRefreshRate * Time.deltaTime;
             currentSheild = Mathf.Min(currentSheild, maxSheild);
             lh.SetPlayerSheild(currentSheild);
-
         }
     }
 
@@ -44,7 +46,12 @@ public class PlayerHealthHandler : MonoBehaviour
         float newSheild = currentSheild - d;
         float healthToRemove = 0.0f;
 
-        if(newSheild < 0.0f)
+        if (newSheild > 0.0f)
+            StartCoroutine(BlinkCyan(0.1f));
+        else
+            StartCoroutine(BlinkRed(0.1f));
+
+        if (newSheild < 0.0f)
         {
             healthToRemove = Mathf.Abs(newSheild);
             newSheild = 0.0f;
@@ -88,6 +95,20 @@ public class PlayerHealthHandler : MonoBehaviour
                 bb.Kill();
             }
         }
+    }
+
+    IEnumerator BlinkCyan(float time)
+    {
+        spriteRenderer.color = Color.cyan;
+        yield return new WaitForSeconds(time);
+        spriteRenderer.color = Color.white;
+    }
+
+    IEnumerator BlinkRed(float time)
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(time);
+        spriteRenderer.color = Color.white;
     }
 
 }

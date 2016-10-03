@@ -14,7 +14,7 @@ public class EnemyHealthHandler : MonoBehaviour
     public GameObject explosionPrefab;
     public GameObject displayTextPrefab;
 
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start()
@@ -22,7 +22,7 @@ public class EnemyHealthHandler : MonoBehaviour
         lh = GameObject.FindObjectOfType<LevelHandler>();
         currentHealth = maxHealth;
 
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -49,9 +49,9 @@ public class EnemyHealthHandler : MonoBehaviour
 
     IEnumerator Blink(float time)
     {
-        renderer.color = Color.red;
+        spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(time);
-        renderer.color = Color.white;
+        spriteRenderer.color = Color.white;
     }
 
     public void Kill()
