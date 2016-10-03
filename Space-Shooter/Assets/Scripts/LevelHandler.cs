@@ -8,6 +8,7 @@ public class LevelHandler : MonoBehaviour
     private int scoreMult = 1;
     private float playerHealth, playerMaxHealth;
     private float playerSheild, playerMaxSheild;
+    private float playerOverheat, playerMaxOverheat;
 
     private bool paused = false;
     private int shotsFired = 0;
@@ -18,6 +19,7 @@ public class LevelHandler : MonoBehaviour
     public Text scoreText;
     public BarScript healthBar;
     public BarScript sheildBar;
+    public BarScript overheatBar;
 
     private ArcadeSpawnHandler spawnHandler;
     private Countdown waveGUIHandler;
@@ -47,6 +49,12 @@ public class LevelHandler : MonoBehaviour
         playerSheild = playerMaxSheild;
     }
 
+    public void InitOverheat(float maxOverheat)
+    {
+        playerMaxOverheat = maxOverheat;
+        SetPlayerOverheat(0.0f);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -67,8 +75,6 @@ public class LevelHandler : MonoBehaviour
         {
             Application.LoadLevel(Application.loadedLevel);
         }
-
-
 
     }
 
@@ -95,10 +101,34 @@ public class LevelHandler : MonoBehaviour
         healthBar.UpdateBar(playerHealth, playerMaxHealth);
     }
 
+    public void SetMaxPlayerHealth(float f)
+    {
+        playerMaxHealth = f;
+        healthBar.UpdateBar(playerHealth, playerMaxHealth);
+    }
+
     public void SetPlayerSheild(float f)
     {
         playerSheild = f;
         sheildBar.UpdateBar(playerSheild, playerMaxSheild);
+    }
+
+    public void SetMaxPlayerSheild(float f)
+    {
+        playerMaxSheild = f;
+        sheildBar.UpdateBar(playerSheild, playerMaxSheild);
+    }
+
+    public void SetPlayerOverheat(float f)
+    {
+        playerOverheat = f;
+        overheatBar.UpdateBar(playerOverheat, playerMaxOverheat);
+    }
+
+    public void SetmaxPlayerOverheat(float f)
+    {
+        playerMaxOverheat = f;
+        sheildBar.UpdateBar(playerOverheat, playerMaxOverheat);
     }
 
     public int GetShotsFired() { return shotsFired; }
@@ -127,4 +157,5 @@ public class LevelHandler : MonoBehaviour
 
     public void DisplayScoreText() { scoreText.text = "Score: " + score; }
     public void DisplayWaveText(int nWaves) { waveGUIHandler.ShowWaveNumber(nWaves); }
+
 }

@@ -14,7 +14,12 @@ public class BlasterHandler : MonoBehaviour
 
     public float fireRate = 1.0f;
     private float coolDownTime;
-    private float currentCooldownTime = 0;
+    private float currentCooldownTime = 0.0f;
+
+    public float maxOverheatTime = 1.0f;
+    public float overheatFactor = 6.0f;
+    private float currentOverheatTime = 0.0f;
+    private bool isOverheating = false;
 
     public float blasterSpeed;
 
@@ -29,15 +34,19 @@ public class BlasterHandler : MonoBehaviour
         coolDownTime = 1 / fireRate;
         lh = GameObject.FindObjectOfType<LevelHandler>();
         audioSource = GameObject.FindGameObjectWithTag("AudioHandler").GetComponent<AudioSource>();
+
+        lh.InitOverheat(maxOverheatTime);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetButton("Fire") && currentCooldownTime <= 0f)
+        if (Input.GetButton("Fire") && currentCooldownTime <= 0f && currentOverheatTime < maxOverheatTime && !isOverheating)
         {
             Fire();
+            currentOverheatTime += Time.deltaTime*overheatFactor;
+            lh.SetPlayerOverheat(currentOverheatTime);
         }
         else if (Input.GetButtonDown("Missiles"))
         {
@@ -45,6 +54,31 @@ public class BlasterHandler : MonoBehaviour
         }
 
         currentCooldownTime -= Time.deltaTime;
+        UpdateOverheat();
+    }
+
+    private void UpdateOverheat()
+    {
+        if (!isOverheating && currentOverheatTime < maxOverheatTime)
+        {
+            currentOverheatTime -= Time.deltaTime;
+            currentOverheatTime = Mathf.Max(currentOverheatTime, 0.0f);
+            lh.SetPlayerOverheat(currentOverheatTime);
+        }
+        if (currentOverheatTime >= maxOverheatTime && !isOverheating)
+        {
+            StartCoroutine(Overheat(1.0f));
+        }
+
+    }
+
+    public IEnumerator Overheat(float t)
+    {
+        isOverheating = true;
+        yield return new WaitForSeconds(t);
+        isOverheating = false;
+        currentOverheatTime = 0.0f;
+        lh.SetPlayerOverheat(currentOverheatTime);
     }
 
     void Fire()
