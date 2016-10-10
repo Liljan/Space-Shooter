@@ -24,13 +24,24 @@ public class LevelSpawnHandler : Spawnhandler
         Debug.Log("Level height: " + levelHeight);
 
         x = y = 0;
+
+        enemiesLeft = 0;
     }
 
     public override void Update()
     {
-        if (timeToSpawn <= 0)
+        if (timeToSpawn <= 0 && row < levelHeight)
         {
             SpawnLine();
+        }
+
+        if (row >= levelHeight)
+        {
+            if (enemiesLeft == 0 && !hasWon)
+            {
+                hasWon = true;
+                StartCoroutine(Win());
+            }
         }
 
         timeToSpawn -= Time.deltaTime;
@@ -51,6 +62,7 @@ public class LevelSpawnHandler : Spawnhandler
                 {
                     Vector3 pos = new Vector3(spawnPointLeft.position.x + i * stepSize, spawnPointLeft.position.y, z);
                     SpawnGameObject(g, pos);
+                    ++enemiesLeft;
                 }
             }
 
@@ -80,5 +92,11 @@ public class LevelSpawnHandler : Spawnhandler
     public override void NextWave()
     {
 
+    }
+
+    public override IEnumerator Win()
+    {
+        Debug.Log("Win win win");
+        yield return new WaitForSeconds(1.0f);
     }
 }

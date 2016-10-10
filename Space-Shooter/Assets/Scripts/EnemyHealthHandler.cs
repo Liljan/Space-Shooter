@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyHealthHandler : MonoBehaviour
 {
-    private LevelHandler lh;
+    
     public float maxHealth = 1;
     private float currentHealth;
 
@@ -15,11 +15,14 @@ public class EnemyHealthHandler : MonoBehaviour
     public GameObject displayTextPrefab;
 
     private SpriteRenderer spriteRenderer;
+    private Spawnhandler sh;
+    private LevelHandler lh;
 
     // Use this for initialization
     void Start()
     {
         lh = GameObject.FindObjectOfType<LevelHandler>();
+        sh = GameObject.FindObjectOfType<Spawnhandler>();
         currentHealth = maxHealth;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -60,7 +63,7 @@ public class EnemyHealthHandler : MonoBehaviour
         txtObj.GetComponent<TextMesh>().text = score.ToString();
 
         lh.AddScore(score);
-        lh.AddDestroyedEnemy();
+        sh.RemoveEnemy();
         Destroy(this.gameObject, destroyDelay);
     }
 
@@ -77,7 +80,7 @@ public class EnemyHealthHandler : MonoBehaviour
         }
         else if (col.CompareTag("StopPoint"))
         {
-            lh.AddDestroyedEnemy();
+            sh.RemoveEnemy();
             Destroy(this.gameObject, destroyDelay);
         }
     }

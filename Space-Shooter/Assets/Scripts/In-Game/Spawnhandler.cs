@@ -23,6 +23,9 @@ public abstract class Spawnhandler : MonoBehaviour
     public const float MAX_SPAWN_TIME = 3f;
     protected float timeToSpawn;
 
+    // win conditions
+    protected bool hasWon = false;
+
     public void Awake()
     {
         InitSpawnPoints();
@@ -40,7 +43,7 @@ public abstract class Spawnhandler : MonoBehaviour
 
     public abstract void Update();
 
-   // public abstract void SpawnGameObject(GameObject g, Vector2 pos);
+    // public abstract void SpawnGameObject(GameObject g, Vector2 pos);
 
     protected void SetRemainingEnemies()
     {
@@ -52,6 +55,13 @@ public abstract class Spawnhandler : MonoBehaviour
         levelHandler.DisplayWaveText(currentWave);
     }
 
-    public abstract void NextWave();
+    public void RemoveEnemy()
+    {
+        --enemiesLeft;
+        Debug.Log(enemiesLeft);
+    }
 
+    public abstract IEnumerator Win();
+
+    public abstract void NextWave();
 }
