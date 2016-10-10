@@ -13,8 +13,12 @@ public class LevelSpawnHandler : Spawnhandler
     // spawning variables
     private Color currentColor;
 
+    private bool hasStarted = false;
+
     public override void Start()
     {
+        levelHandler = GetComponent<LevelHandler>();
+
         levelWidth = levelData.width;
         levelHeight = levelData.height;
 
@@ -37,14 +41,13 @@ public class LevelSpawnHandler : Spawnhandler
 
         if (row >= levelHeight)
         {
-            if (enemiesLeft == 0 && !hasWon)
+            if (enemiesLeft <= 0 && !hasWon)
             {
                 hasWon = true;
-                StartCoroutine(Win());
+                Win();
             }
         }
-
-        timeToSpawn -= Time.deltaTime;
+            timeToSpawn -= Time.deltaTime;
     }
 
     public void SpawnLine()
@@ -94,9 +97,8 @@ public class LevelSpawnHandler : Spawnhandler
 
     }
 
-    public override IEnumerator Win()
+    public override void Win()
     {
-        Debug.Log("Win win win");
-        yield return new WaitForSeconds(1.0f);
+        levelHandler.Win();
     }
 }

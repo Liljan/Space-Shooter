@@ -61,7 +61,7 @@ public abstract class Spawnhandler : MonoBehaviour
         Debug.Log(enemiesLeft);
     }
 
-    public abstract IEnumerator Win();
+    public abstract void Win();
 
     public abstract void NextWave();
 }

@@ -22,18 +22,20 @@ public class LevelHandler : MonoBehaviour
     public BarScript overheatBar;
 
     private Spawnhandler spawnHandler;
-    private Countdown waveGUIHandler;
-
+    private Countdown messageGUIHandler;
 
     void Awake()
     {
         spawnHandler = GetComponent<Spawnhandler>();
-        waveGUIHandler = GameObject.FindObjectOfType<Countdown>();
+
+        messageGUIHandler = GameObject.FindObjectOfType<Countdown>();
+        messageGUIHandler.Show
     }
 
     // Use this for initialization
     void Start()
     {
+        spawnHandler.enabled = false;
         DisplayScoreText();
     }
 
@@ -145,6 +147,17 @@ public class LevelHandler : MonoBehaviour
     public int GetRemainingEnemies() { return remainingEnemies; }
 
     public void DisplayScoreText() { scoreText.text = "Score: " + score; }
-    public void DisplayWaveText(int nWaves) { waveGUIHandler.ShowWaveNumber(nWaves); }
+    public void DisplayWaveText(int nWaves) { messageGUIHandler.ShowWaveNumber(nWaves); }
+
+    public void Win()
+    {
+        StartCoroutine(WinCoroutine());
+    }
+
+    public IEnumerator WinCoroutine()
+    {
+        yield return new WaitForSeconds(5);
+    }
+
 
 }

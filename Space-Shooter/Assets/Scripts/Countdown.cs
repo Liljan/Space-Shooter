@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour
 {
-    public float timer = 0.5f;
+    public float timer = 1.5f;
     public GameObject waveMessage;
     public GameObject waveNumberText;
 
@@ -14,13 +14,18 @@ public class Countdown : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       // ShowMessages();
+        //StartCoroutine(ShowMessage(timer, "May the Force be with you."));
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void ShowMessage(float t, string msg)
+    {
+        StartCoroutine(DisplayMessage(t, msg));
     }
 
     public void ShowWaveNumber(int nWaves)
@@ -42,6 +47,14 @@ public class Countdown : MonoBehaviour
         g2.GetComponent<Text>().text = "Wave " + nWaves;
         yield return new WaitForSeconds(t);
         Destroy(g2);
+    }
 
+    IEnumerator DisplayMessage(float t, string msg)
+    {
+        GameObject g = Instantiate(waveMessage, transform.position, Quaternion.identity) as GameObject;
+        g.GetComponent<Text>().text = msg;
+        g.transform.SetParent(this.transform);
+        yield return new WaitForSeconds(t);
+        Destroy(g);
     }
 }
