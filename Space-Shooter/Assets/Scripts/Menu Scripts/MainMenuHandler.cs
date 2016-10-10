@@ -19,6 +19,11 @@ public class MainMenuHandler : MonoBehaviour {
         SceneManager.LoadScene(scene);
     }
 
+    public void SetScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
     public void Exit()
     {
         Application.Quit();

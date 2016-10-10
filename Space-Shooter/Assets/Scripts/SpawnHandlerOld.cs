@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SpawnHandler : MonoBehaviour
+public class SpawnHandlerOld : MonoBehaviour
 {
     // bitmap that stores
     public Texture2D levelData;
