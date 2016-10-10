@@ -43,8 +43,6 @@ public class EnemyHealthHandler : MonoBehaviour
         {
             StartCoroutine(Blink(0.1f));
         }
-
-
     }
 
     IEnumerator Blink(float time)

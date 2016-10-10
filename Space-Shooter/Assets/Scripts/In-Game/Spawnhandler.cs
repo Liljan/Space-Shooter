@@ -20,7 +20,7 @@ public abstract class Spawnhandler : MonoBehaviour
     protected int enemiesLeft;
 
     // spawn timers
-    public const float maxSpawnTime = 3f;
+    public const float MAX_SPAWN_TIME = 3f;
     protected float timeToSpawn;
 
     public void Awake()
@@ -40,7 +40,7 @@ public abstract class Spawnhandler : MonoBehaviour
 
     public abstract void Update();
 
-    public abstract void SpawnGameObject(GameObject g, Vector2 pos);
+   // public abstract void SpawnGameObject(GameObject g, Vector2 pos);
 
     protected void SetRemainingEnemies()
     {
@@ -51,5 +51,7 @@ public abstract class Spawnhandler : MonoBehaviour
     {
         levelHandler.DisplayWaveText(currentWave);
     }
+
+    public abstract void NextWave();
 
 }

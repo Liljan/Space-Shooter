@@ -21,13 +21,13 @@ public class LevelHandler : MonoBehaviour
     public BarScript sheildBar;
     public BarScript overheatBar;
 
-    private ArcadeSpawnHandler spawnHandler;
+    private Spawnhandler spawnHandler;
     private Countdown waveGUIHandler;
 
 
     void Awake()
     {
-        spawnHandler = GetComponent<ArcadeSpawnHandler>();
+        spawnHandler = GetComponent<Spawnhandler>();
         waveGUIHandler = GameObject.FindObjectOfType<Countdown>();
     }
 

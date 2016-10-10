@@ -28,10 +28,12 @@ public class LevelSpawnHandler : Spawnhandler
 
     public override void Update()
     {
-        // test
-        if (row == 0) {
+        if (timeToSpawn <= 0)
+        {
             SpawnLine();
         }
+
+        timeToSpawn -= Time.deltaTime;
     }
 
     public void SpawnLine()
@@ -39,38 +41,44 @@ public class LevelSpawnHandler : Spawnhandler
         for (int i = 0; i <= levelWidth; ++i)
         {
             currentColor = levelData.GetPixel(i, row);
-            
+
             if (currentColor != null)
             {
 
                 GameObject g = FindObjectByColor(currentColor);
-                Debug.Log("Current color: " + g);
+
                 if (g != null)
                 {
-                    Vector2 pos = new Vector2(spawnPointLeft.position.x + i * stepSize, spawnPointLeft.position.y);
-                    SpawnGameObject(g,pos);
+                    Vector3 pos = new Vector3(spawnPointLeft.position.x + i * stepSize, spawnPointLeft.position.y, z);
+                    SpawnGameObject(g, pos);
                 }
             }
 
         }
         ++row;
+        timeToSpawn = 1.0f;
     }
 
-    public override void SpawnGameObject(GameObject g, Vector2 pos)
+    public void SpawnGameObject(GameObject g, Vector3 pos)
     {
-        throw new NotImplementedException();
+        Instantiate(g, pos, Quaternion.identity);
     }
 
     private GameObject FindObjectByColor(Color color)
     {
         foreach (ObjectByColor entry in objectsByColor)
+        {
             if (color == entry.c)
+            {
                 return entry.obj;
+            }
+        }
         // else
         return null;
     }
 
+    public override void NextWave()
+    {
 
-
-
+    }
 }
