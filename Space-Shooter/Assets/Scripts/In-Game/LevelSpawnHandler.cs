@@ -47,7 +47,7 @@ public class LevelSpawnHandler : Spawnhandler
                 Win();
             }
         }
-            timeToSpawn -= Time.deltaTime;
+        timeToSpawn -= Time.deltaTime;
     }
 
     public void SpawnLine()
@@ -58,7 +58,6 @@ public class LevelSpawnHandler : Spawnhandler
 
             if (currentColor != null)
             {
-
                 GameObject g = FindObjectByColor(currentColor);
 
                 if (g != null)

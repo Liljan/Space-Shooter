@@ -29,10 +29,17 @@ public class LevelHandler : MonoBehaviour
         spawnHandler = GetComponent<Spawnhandler>();
 
         messageGUIHandler = GameObject.FindObjectOfType<Countdown>();
-        messageGUIHandler.Show
+        StartCoroutine(StartRound(1.5f));
     }
 
-    // Use this for initialization
+    IEnumerator StartRound(float t)
+    {
+        spawnHandler.enabled = false;
+        messageGUIHandler.ShowMessage(t, "Prepare for incoming enemies. Good luck.");
+        yield return new WaitForSeconds(t);
+        spawnHandler.enabled = true;
+    }
+
     void Start()
     {
         spawnHandler.enabled = false;
