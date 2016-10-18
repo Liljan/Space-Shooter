@@ -21,6 +21,9 @@ public class LevelHandler : MonoBehaviour
     public BarScript sheildBar;
     public BarScript overheatBar;
 
+    public GameObject hintTextObject;
+    private Text hintText;
+
     private Spawnhandler spawnHandler;
     private Countdown messageGUIHandler;
 
@@ -32,11 +35,13 @@ public class LevelHandler : MonoBehaviour
         StartCoroutine(StartRound(1.5f));
     }
 
-    IEnumerator StartRound(float t)
+    IEnumerator StartRound(float dt)
     {
         spawnHandler.enabled = false;
-        messageGUIHandler.ShowMessage(t, "Prepare for incoming enemies. Good luck.");
-        yield return new WaitForSeconds(t);
+        messageGUIHandler.ShowMessage(dt, "Prepare for incoming enemies.");
+        yield return new WaitForSeconds(dt);
+        messageGUIHandler.ShowMessage(dt, "May the Force be with you.");
+        yield return new WaitForSeconds(dt);
         spawnHandler.enabled = true;
     }
 
@@ -44,6 +49,24 @@ public class LevelHandler : MonoBehaviour
     {
         spawnHandler.enabled = false;
         DisplayScoreText();
+
+        hintText = hintTextObject.GetComponentInChildren<Text>();
+        HideHintText();
+    }
+
+    void SetHintText(string s)
+    {
+        hintText.text = s;
+    }
+
+    void ShowHintText()
+    {
+        hintTextObject.SetActive(true);
+    }
+
+    void HideHintText()
+    {
+        hintTextObject.SetActive(false);
     }
 
     public void InitHealth(float maxHealth)
