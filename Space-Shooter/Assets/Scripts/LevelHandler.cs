@@ -27,6 +27,8 @@ public class LevelHandler : MonoBehaviour
     private Spawnhandler spawnHandler;
     private Countdown messageGUIHandler;
 
+    public string[] hints;
+
     void Awake()
     {
         spawnHandler = GetComponent<Spawnhandler>();
@@ -43,6 +45,20 @@ public class LevelHandler : MonoBehaviour
         messageGUIHandler.ShowMessage(dt, "May the Force be with you.");
         yield return new WaitForSeconds(dt);
         spawnHandler.enabled = true;
+
+        StartCoroutine(DisplayAllHints(7.0f));
+    }
+
+    IEnumerator DisplayAllHints(float t)
+    {
+        for (int i = 0; i < hints.Length; ++i)
+        {
+            SetHintText(hints[i]);
+            ShowHintText();
+            yield return new WaitForSeconds(t);
+            HideHintText();
+            yield return new WaitForSeconds(0.5f * t);
+        }
     }
 
     void Start()
@@ -51,6 +67,14 @@ public class LevelHandler : MonoBehaviour
         DisplayScoreText();
 
         hintText = hintTextObject.GetComponentInChildren<Text>();
+        HideHintText();
+    }
+
+    IEnumerator DisplayHintText(string s, float t)
+    {
+        SetHintText(s);
+        ShowHintText();
+        yield return new WaitForSeconds(t);
         HideHintText();
     }
 
