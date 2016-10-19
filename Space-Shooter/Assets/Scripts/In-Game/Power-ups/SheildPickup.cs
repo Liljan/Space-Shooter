@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class HealthPickup : Powerup
+public class SheildPickup : Powerup
 {
     private PlayerHealthHandler phh;
-    public float health = 20.0f;
-       
+    public float sheild = 100.0f;
+
     public void Awake()
     {
         phh = GameObject.FindObjectOfType<PlayerHealthHandler>();
@@ -14,11 +13,11 @@ public class HealthPickup : Powerup
 
     public override void ActivatePowerUp()
     {
-        phh.AddHealth(health);
+        phh.AddSheild(sheild);
     }
 
     public override string GetPickupMessage()
     {
-        return "Health";
+        return "Sheild";
     }
 }

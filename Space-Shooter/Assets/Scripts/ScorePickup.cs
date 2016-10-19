@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ScorePickup : Powerup {
 
     private LevelHandler lh;
     public int score = 200;
-    public GameObject scorePrefab;
 
     public void Awake()
     {
@@ -15,8 +15,10 @@ public class ScorePickup : Powerup {
     public override void ActivatePowerUp()
     {
         lh.AddScore(score);
+    }
 
-        GameObject txtObj = Instantiate(scorePrefab, transform.position, transform.rotation) as GameObject;
-        txtObj.GetComponent<TextMesh>().text = score.ToString();
+    public override string GetPickupMessage()
+    {
+        return "Bonus score: " + score;
     }
 }

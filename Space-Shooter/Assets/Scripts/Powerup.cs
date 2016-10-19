@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public abstract class Powerup : MonoBehaviour {
 
     public float speed;
+
+    public GameObject TextDisplayPrefab;
     public Boundary borders;
 	
 	// Update is called once per frame
@@ -18,6 +21,8 @@ public abstract class Powerup : MonoBehaviour {
         if (col.gameObject.CompareTag("Player"))
         {
             ActivatePowerUp();
+            GameObject txtObj = Instantiate(TextDisplayPrefab, transform.position, transform.rotation) as GameObject;
+            txtObj.GetComponent<TextMesh>().text = GetPickupMessage();
             Destroy(gameObject);
         }
     }
@@ -30,4 +35,5 @@ public abstract class Powerup : MonoBehaviour {
     }
 
     public abstract void ActivatePowerUp();
+    public abstract string GetPickupMessage();
 }

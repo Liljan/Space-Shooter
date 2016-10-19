@@ -74,6 +74,13 @@ public class PlayerHealthHandler : MonoBehaviour
         lh.SetPlayerHealth(currentHealth);
     }
 
+    public void AddSheild(float d)
+    {
+        currentSheild += d;
+        currentSheild = Mathf.Max(currentHealth, maxSheild);
+        lh.SetPlayerSheild(currentSheild);
+    }
+
     public void Kill()
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
