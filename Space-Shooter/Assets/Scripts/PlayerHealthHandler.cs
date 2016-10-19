@@ -80,6 +80,7 @@ public class PlayerHealthHandler : MonoBehaviour
     public void Kill()
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
+        lh.Lose();
         Destroy(this.gameObject, destroyDelay);
     }
 

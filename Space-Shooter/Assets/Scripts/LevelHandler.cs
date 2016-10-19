@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelHandler : MonoBehaviour
 {
+    public string nextScene;
+
     private int score = 0;
     private int scoreMult = 1;
     private float playerHealth, playerMaxHealth;
@@ -27,6 +30,7 @@ public class LevelHandler : MonoBehaviour
     private Spawnhandler spawnHandler;
     private Countdown messageGUIHandler;
 
+    public float hintTimer = 5.0f;
     public string[] hints;
 
     void Awake()
@@ -46,7 +50,7 @@ public class LevelHandler : MonoBehaviour
         yield return new WaitForSeconds(dt);
         spawnHandler.enabled = true;
 
-        StartCoroutine(DisplayAllHints(7.0f));
+        StartCoroutine(DisplayAllHints(hintTimer));
     }
 
     IEnumerator DisplayAllHints(float t)
@@ -208,10 +212,28 @@ public class LevelHandler : MonoBehaviour
         StartCoroutine(WinCoroutine());
     }
 
-    public IEnumerator WinCoroutine()
+    public void Lose()
     {
-        yield return new WaitForSeconds(5);
+        StartCoroutine(LoseCoroutine());
     }
 
+    public IEnumerator LoseCoroutine()
+    {
+        messageGUIHandler.ShowMessage(3.0f, "Defeat!");
+       // Color c = messageGUIHandler.GetColor();
+       // messageGUIHandler.SetColor(Color.red);
 
+        yield return new WaitForSeconds(3.0f);
+      //  messageGUIHandler.SetColor(c);
+
+        // "Application.loadedLevel" is deprecated and should be replaced. 
+        SceneManager.LoadScene(Application.loadedLevel);
+    }
+
+    public IEnumerator WinCoroutine()
+    {
+        messageGUIHandler.ShowMessage(3.0f, "Victory!");
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(nextScene);
+    }
 }

@@ -6,22 +6,17 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     public float timer = 1.5f;
-    public GameObject waveMessage;
+    public GameObject messageObj;
     public GameObject waveNumberText;
 
+    private Color messageColor;
 
-   // public SpawnHandler spawnHandler;
+    // public SpawnHandler spawnHandler;
 
     // Use this for initialization
     void Start()
     {
         //StartCoroutine(ShowMessage(timer, "May the Force be with you."));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void ShowMessage(float t, string msg)
@@ -31,14 +26,14 @@ public class Countdown : MonoBehaviour
 
     public void ShowWaveNumber(int nWaves)
     {
-       // waveNumberText.text = "Wave " + nWaves;
-        StartCoroutine(FinalCountdown(timer,nWaves));
+        // waveNumberText.text = "Wave " + nWaves;
+        StartCoroutine(FinalCountdown(timer, nWaves));
     }
 
     IEnumerator FinalCountdown(float t, int nWaves)
     {
         yield return new WaitForSeconds(t);
-        GameObject g1 = Instantiate(waveMessage, transform.position, Quaternion.identity) as GameObject;
+        GameObject g1 = Instantiate(messageObj, transform.position, Quaternion.identity) as GameObject;
         g1.transform.SetParent(this.transform);
         yield return new WaitForSeconds(t);
         Destroy(g1);
@@ -52,10 +47,15 @@ public class Countdown : MonoBehaviour
 
     IEnumerator DisplayMessage(float t, string msg)
     {
-        GameObject g = Instantiate(waveMessage, transform.position, Quaternion.identity) as GameObject;
-        g.GetComponent<Text>().text = msg;
+        GameObject g = Instantiate(messageObj, transform.position, Quaternion.identity) as GameObject;
+        Text message = g.GetComponent<Text>();
+        message.text = msg;
+
         g.transform.SetParent(this.transform);
         yield return new WaitForSeconds(t);
         Destroy(g);
     }
+
+    public Color GetColor() { return messageColor; }
+    public void SetColor(Color c) { messageColor = c; }
 }
