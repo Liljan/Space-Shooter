@@ -50,7 +50,7 @@ public class EnemyHealthHandler : MonoBehaviour
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 
-        GameObject txtObj = Instantiate(displayTextPrefab, transform.position + 2f * Vector3.right, transform.rotation) as GameObject;
+        GameObject txtObj = Instantiate(displayTextPrefab, transform.position + 2f * Vector3.right, Quaternion.identity) as GameObject;
         txtObj.GetComponent<TextMesh>().text = score.ToString();
 
         lh.AddScore(score);
