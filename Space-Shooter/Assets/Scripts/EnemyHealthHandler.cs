@@ -3,11 +3,8 @@ using System.Collections;
 
 public class EnemyHealthHandler : MonoBehaviour
 {
-    
-    public float maxHealth = 1;
+    public float maxHealth = 1.0f;
     private float currentHealth;
-
-    public float destroyDelay = 0f;
 
     public int score = 10;
 
@@ -26,12 +23,6 @@ public class EnemyHealthHandler : MonoBehaviour
         currentHealth = maxHealth;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void TakeDamage(float d)
@@ -64,7 +55,7 @@ public class EnemyHealthHandler : MonoBehaviour
 
         lh.AddScore(score);
         sh.RemoveEnemy();
-        Destroy(this.gameObject, destroyDelay);
+        Destroy(this.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -81,7 +72,11 @@ public class EnemyHealthHandler : MonoBehaviour
         else if (col.CompareTag("StopPoint"))
         {
             sh.RemoveEnemy();
-            Destroy(this.gameObject, destroyDelay);
+            Destroy(this.gameObject);
+        }
+        else if (col.CompareTag("Player"))
+        {
+            Kill();
         }
     }
 
@@ -92,7 +87,5 @@ public class EnemyHealthHandler : MonoBehaviour
             PlayerHealthHandler ph = col.gameObject.GetComponent<PlayerHealthHandler>();
             ph.TakeDamage(10f);
         }
-
-        Kill();
     }
 }

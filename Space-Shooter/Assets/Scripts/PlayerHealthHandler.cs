@@ -10,8 +10,6 @@ public class PlayerHealthHandler : MonoBehaviour
     private float currentSheild;
     public float sheildRefreshRate = 0.5f;
 
-    public float destroyDelay = 0f;
-
     public GameObject explosionPrefab;
 
     private LevelHandler lh;
@@ -32,7 +30,6 @@ public class PlayerHealthHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (currentSheild < maxSheild)
         {
             currentSheild += sheildRefreshRate * Time.deltaTime;
@@ -81,9 +78,8 @@ public class PlayerHealthHandler : MonoBehaviour
     {
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         lh.Lose();
-        Destroy(this.gameObject, destroyDelay);
+        Destroy(this.gameObject);
     }
-
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -95,6 +91,10 @@ public class PlayerHealthHandler : MonoBehaviour
                 TakeDamage(bb.GetDamage());
                 bb.Kill();
             }
+        }
+        else if (col.CompareTag("Enemy"))
+        {
+            TakeDamage(15.0f);
         }
     }
 
