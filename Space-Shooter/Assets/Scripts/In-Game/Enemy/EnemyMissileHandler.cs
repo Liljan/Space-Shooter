@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyBlasterHandler : MonoBehaviour
-{
+public class EnemyMissileHandler : MonoBehaviour {
+
     public GameObject[] cannons;
 
     private int currentCannon = 0;
-    public GameObject BlasterBoltPrefab;
+    public GameObject MissilePrefab;
 
     public float maxTimeToFire;
     private float timeToFire;
 
-    public float blasterSpeed;
+    public float missileSpeed;
 
     // audio
     private AudioSource audioSource;
-    public AudioClip SFX_blast;
+    public AudioClip SFX_missile;
 
     // Use this for initialization
     void Start()
@@ -37,16 +37,17 @@ public class EnemyBlasterHandler : MonoBehaviour
         }
 
         timeToFire -= Time.deltaTime;
+
     }
 
     void Fire()
     {
         Vector3 pos = cannons[currentCannon].transform.position;
 
-        GameObject obj = Instantiate(BlasterBoltPrefab, pos, Quaternion.identity) as GameObject;
-        obj.GetComponent<BlasterBolt>().Init(new Vector3(0.0f, -blasterSpeed, 0.0f));
+        GameObject obj = Instantiate(MissilePrefab, pos, Quaternion.identity) as GameObject;
+        obj.GetComponent<EnemyMissile>().Init(new Vector3(0.0f, -missileSpeed, 0.0f));
 
-        audioSource.PlayOneShot(SFX_blast);
+        audioSource.PlayOneShot(SFX_missile);
 
         ++currentCannon;
         if (currentCannon > cannons.Length - 1)

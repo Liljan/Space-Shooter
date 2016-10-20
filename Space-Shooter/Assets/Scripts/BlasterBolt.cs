@@ -7,7 +7,7 @@ public class BlasterBolt : MonoBehaviour
 
     public float damage;
 
-    private Rigidbody2D rb2d;
+    protected Rigidbody2D rb2d;
 
     void Awake()
     {
@@ -19,7 +19,7 @@ public class BlasterBolt : MonoBehaviour
     {
     }
 
-    public void Init(Vector3 v)
+    public virtual void Init(Vector3 v)
     {
         rb2d.velocity = v;
     }

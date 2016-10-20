@@ -107,5 +107,6 @@ public class BlasterHandler : MonoBehaviour
     {
         fireRate += f;
         coolDownTime = 1 / fireRate;
+        overheatFactor *= 0.8f;
     }
 }

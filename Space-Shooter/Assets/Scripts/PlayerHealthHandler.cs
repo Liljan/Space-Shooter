@@ -99,9 +99,9 @@ public class PlayerHealthHandler : MonoBehaviour
                 bb.Kill();
             }
         }
-        else if (col.CompareTag("Enemy"))
+        else if (col.CompareTag("Enemy") || col.CompareTag("Asteroid"))
         {
-            TakeDamage(15.0f);
+            TakeDamage(20.0f);
         }
     }
 
