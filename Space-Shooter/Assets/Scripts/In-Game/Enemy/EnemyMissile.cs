@@ -5,7 +5,6 @@ public class EnemyMissile : BlasterBolt
 {
     public override void Init(Vector3 v)
     {
-        Debug.Log("Hellos");
         float oldMag = v.magnitude;
 
         try
