@@ -78,6 +78,22 @@ public class Missile : MonoBehaviour
 
         // Debug.Log(enemies[idxClosest]);
         return enemies[idxClosest].transform;
+
+
+        // find the most powerful enemy
+        /*
+        int ind = 0;
+        for (int i = 0; i < enemies.Length; ++i)
+        {
+            int score1 = enemies[i].GetComponent<EnemyHealthHandler>().GetScore();
+            int score2 = enemies[ind].GetComponent<EnemyHealthHandler>().GetScore();
+
+            if (score1 > score2)
+                ind = i;
+        }
+        return enemies[ind].transform;
+
+        */
     }
 
     public void OnTriggerEnter2D(Collider2D col)

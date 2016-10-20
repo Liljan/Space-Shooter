@@ -88,4 +88,6 @@ public class EnemyHealthHandler : MonoBehaviour
             ph.TakeDamage(10f);
         }
     }
+
+    public int GetScore() { return score; }
 }
