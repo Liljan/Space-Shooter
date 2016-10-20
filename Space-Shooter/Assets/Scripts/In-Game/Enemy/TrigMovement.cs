@@ -25,9 +25,6 @@ public class TrigMovement : MonoBehaviour
         pos.x = centerX + magnitude * Mathf.Cos(phase * Mathf.Deg2Rad);
         rb2d.position = pos;
 
-        Debug.Log(pos);
-
         phase += Time.deltaTime * angularVelocity;
-        Debug.Log(phase);
     }
 }

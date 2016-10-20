@@ -64,7 +64,6 @@ public class LevelSpawnHandler : Spawnhandler
                 {
                     Vector3 pos = new Vector3(spawnPointLeft.position.x + i * stepSize, spawnPointLeft.position.y, z);
                     SpawnGameObject(g, pos);
-                    ++enemiesLeft;
                 }
             }
 
@@ -75,7 +74,11 @@ public class LevelSpawnHandler : Spawnhandler
 
     public void SpawnGameObject(GameObject g, Vector3 pos)
     {
-        Instantiate(g, pos, Quaternion.identity);
+        GameObject spawnedObj = Instantiate(g, pos, Quaternion.identity) as GameObject;
+
+        if (spawnedObj.CompareTag("Enemy") || spawnedObj.CompareTag("Asteroid"))
+            ++enemiesLeft;
+
     }
 
     private GameObject FindObjectByColor(Color color)
