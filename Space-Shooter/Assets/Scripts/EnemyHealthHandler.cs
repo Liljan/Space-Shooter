@@ -80,14 +80,5 @@ public class EnemyHealthHandler : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.collider.CompareTag("Player"))
-        {
-            PlayerHealthHandler ph = col.gameObject.GetComponent<PlayerHealthHandler>();
-            ph.TakeDamage(10f);
-        }
-    }
-
     public int GetScore() { return score; }
 }
